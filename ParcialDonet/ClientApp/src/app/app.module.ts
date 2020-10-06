@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PersonaConsultaComponent } from './parcial/persona-consulta/persona-consulta.component';
 import { PersonaRegistroComponent } from './parcial/persona-registro/persona-registro.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PersonaRegistroComponent } from './parcial/persona-registro/persona-reg
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    ]),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
