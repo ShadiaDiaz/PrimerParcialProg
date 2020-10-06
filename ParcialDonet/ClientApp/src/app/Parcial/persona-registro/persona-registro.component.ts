@@ -1,4 +1,4 @@
-import { Persona } from './../models/persona';
+import { Persona} from './../models/persona';
 import { Component, OnInit } from '@angular/core';
 import { PersonaService } from 'src/app/services/persona.service';
 
