@@ -1,36 +1,30 @@
-import { Injectable } from '@angular/core';
-import { Persona } from './../parcial/models/persona';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HandleHttpErrorService } from '../@base/handle-http-error.service';
+import {Persona} from './../Parcial/models/persona';
+import { catchError, map, tap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaService {
 
-  constructor() { }
-  get(): Persona[] {
-    return JSON.parse(localStorage.getItem('datos'));
-}
-post(persona: Persona) {
-  let personas: Persona[] = [];
-  if (this.get() != null) {
-  personas = this.get();
+  baseUrl: string;
+  constructor(
+    private http: HttpClient,
+    @Inject('BASE_URL') baseUrl: string,
+    private handdleErrorService: HandleHttpErrorService
+  ) { this.baseUrl = baseUrl; }
+
+
+  post(persona: Persona): Observable<Persona> {
+    return this.http.post<Persona>(this.baseUrl + 'api/Persona', persona).pipe(
+      tap(_ => this.handdleErrorService.log('datos enviados')),
+      catchError(this.handdleErrorService.handleError<Persona>('Registrar Persona', null))
+    );
   }
-  
-  if (personas.find (p=> p.identificacion ==persona.identificacion) == null ){
-  personas.push(persona);
-  localStorage.setItem('datos', JSON.stringify(personas));
-  return "se ha guardado ";
-  }
-  else{
-    "ya se encuentra registrado";
-  }
-}
-total(){
-  var total;
-  let personas:Persona[]=[];
-  if(this.get() != null){
-    personas= this.get();
-  }
-  return personas;
-}
-} 
+
+}  
+

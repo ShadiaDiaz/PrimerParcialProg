@@ -17,7 +17,6 @@ export class PersonaConsultaComponent implements OnInit {
     this.get();    
   }
   get(){
-    this.personas = this.personaService.get();
   }
 
 }
